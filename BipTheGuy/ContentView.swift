@@ -9,22 +9,23 @@ import SwiftUI
 import AVFAudio
 
 struct ContentView: View {
-    
     @State private var audioPlayer: AVAudioPlayer!
-    
-    
+    @State private var isFullSize = true
     
     var body: some View {
-        
         VStack {
-            
             Spacer()
             
             Image("clown")
                 .resizable()
                 .scaledToFit()
+                .scaleEffect(isFullSize ? 1.0 : 0.9)
                 .onTapGesture {
                     playSound(soundName: "punchSound")
+                    isFullSize = false
+                    withAnimation (.spring(response: 0.3, dampingFraction: 0.3)) {
+                        isFullSize = true
+                    }
                 }
             
             Spacer()
@@ -56,7 +57,6 @@ struct ContentView: View {
             }
         }
        
-    
     
     }
     
